@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+    
+    <entry>
+      <title><![CDATA[Git Tricks]]></title>
+      <url>/2016/05/18/git-tricks/</url>
+      <content type="html"><![CDATA[<p>I learned some git tricks from the website: <a href="liaoxuefeng.com">廖雪峰的官方网站</a>. Unfortunately the posts in the website are all writen in Chinese, therefore I would like to share them here in English.</p>
+<h3 id="Git-Alias"><a href="#Git-Alias" class="headerlink" title="Git Alias"></a>Git Alias</h3><p>We use some git commands such as <code>git status</code> a lot. It is often annoying to redo hundreds of times because of typos when we type this word <code>status</code>.<br><code>git st</code> is much easiser than <code>git status</code>, we like lazy solutions.<br>All we need to do is typing one command line, telling git that thereafter <code>st</code> is the alias of <code>status</code>:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git config --global alias.st status</div></pre></td></tr></table></figure></p>
+<p>Now just try typing <code>git st</code> and see if it works.</p>
+<a id="more"></a>
+<p>There are other commands that can be abbreviated, it is commonly used that <code>co</code> for <code>checkout</code>, <code>ci</code> for <code>commit</code> and <code>br</code> for <code>branch</code>:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ git config --global alias.co checkout</div><div class="line">$ git config --global alias.ci commit</div><div class="line">$ git config --global alias.br branch</div></pre></td></tr></table></figure></p>
+<p>Since then, a commit command can be simplified as:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git ci -m <span class="string">"blah blah ..."</span></div></pre></td></tr></table></figure></p>
+<p>In the <code>git config</code> commands above, <code>--global</code> option means that the parameters are used globally, and are available in all repositories within the same user account in the computer.</p>
+<p>Besides, alias is also used for custom git commands. For example, let’s set up a <code>git last</code> command showing last single commit log:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git config --global alias.last `<span class="built_in">log</span> -1`</div></pre></td></tr></table></figure></p>
+<p>Using <code>git last</code> to show the latest commit information:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$ git last</div><div class="line">commit 6357e65da0faaeb95eb87251ce5b0db6e3e1b7d6</div><div class="line">Author: Yunzhi Shi &lt;yzshi08@utexas.edu&gt;</div><div class="line">Date:   Tue May 10 11:14:56 2016 -0500</div><div class="line"></div><div class="line">    Seislet <span class="built_in">test</span>.</div></pre></td></tr></table></figure></p>
+<p>Behold, well, check this out:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git config --global alias.lg <span class="string">"log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset' --abbrev-commit"</span></div></pre></td></tr></table></figure></p>
+<p>The output of <code>git lg</code>:<br><img src="/images/git-tricks/git-last.png" alt="git last"><br>Dang, why didn’t I know about this before?</p>
+<h3 id="Alias-Config-File"><a href="#Alias-Config-File" class="headerlink" title="Alias Config File"></a>Alias Config File</h3><p>While configuring git, attaching <code>--global</code> option makes it effective to current user, otherwise it will only be effective within currect repository.<br>Where do all these configurations go? For each repository, configurations are stored in file <code>.git/config</code>:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">$ cat .git/config</div><div class="line">[core]</div><div class="line">	repositoryformatversion = 0</div><div class="line">	filemode = <span class="literal">true</span></div><div class="line">	bare = <span class="literal">false</span></div><div class="line">	logallrefupdates = <span class="literal">true</span></div><div class="line">	ignorecase = <span class="literal">true</span></div><div class="line">	precomposeunicode = <span class="literal">true</span></div><div class="line">[remote <span class="string">"origin"</span>]</div><div class="line">	url = git@github.com:TCCS-BEG/all.git</div><div class="line">	fetch = +refs/heads/*:refs/remotes/origin/*</div><div class="line">[branch <span class="string">"master"</span>]</div><div class="line">	remote = origin</div><div class="line">	merge = refs/heads/master</div><div class="line">[<span class="built_in">alias</span>]</div><div class="line">    last = <span class="built_in">log</span> -1</div></pre></td></tr></table></figure></p>
+<p>Current alias configurations are written in <code>[alias]</code>.<br>For global cofigurations, they are stored in an invisible file under main folder <code>~/.gitconfig</code>:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">[user]</div><div class="line">	name = Yunzhi Shi</div><div class="line">	email = yzshi08@utexas.edu</div><div class="line">[<span class="built_in">alias</span>]</div><div class="line">	st = status</div><div class="line">	co = checkout</div><div class="line">	ci = commit</div><div class="line">	br = branch</div><div class="line">	unstage = reset HEAD</div><div class="line">	last = <span class="built_in">log</span> -1</div><div class="line">	lg = <span class="built_in">log</span> --color --graph --pretty=format:<span class="string">'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset'</span> --abbrev-commit</div><div class="line">[color]</div><div class="line">	ui = <span class="literal">true</span></div></pre></td></tr></table></figure></p>
+<p>We can directly modify content in this file to configure alias settings or other personal customizations.</p>
+<h3 id="We-Are-Lazy"><a href="#We-Are-Lazy" class="headerlink" title="We Are Lazy"></a>We Are Lazy</h3><p>We are lazy, so we utilize all we could to minimize our labor XD.</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Git </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Git </tag>
+            
+            <tag> Tricks </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Hello World]]></title>
+      <url>/2016/05/18/hello-world/</url>
+      <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<a id="more"></a>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+]]></content>
+      
+        <categories>
+            
+            <category> Blog </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Blog </tag>
+            
+        </tags>
+        
+    </entry>
+    
+  
+  
+</search>
