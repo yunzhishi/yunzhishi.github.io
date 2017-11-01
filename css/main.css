@@ -1816,7 +1816,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #70abdb;
+  background: #4dda95;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2679,6 +2679,9 @@ embed {
 .links-of-blogroll-inline .links-of-blogroll-item {
   display: inline-block;
 }
+body {
+  line-height: 1.618;
+}
 .headband {
   height: 0px;
 }
@@ -2758,6 +2761,17 @@ blockquote {
 }
 .with-love {
   color: #ff71a8;
+}
+img#github-emoji {
+  margin: 0;
+  padding: 0;
+  display: inline !important;
+  vertical-align: bottom;
+  border: none;
+  cursor: text;
+}
+.image-link {
+  text-decoration: none;
 }
 @-moz-keyframes heartAnimate {
   0%, 100% {

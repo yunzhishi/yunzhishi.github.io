@@ -110,12 +110,11 @@ void drawInformation(){
 }
 
 // update points on the plane
-void updatePoints(int n_new){
+void updatePoints(int n){
     for (int i = points.size()-1; i >= 0; i--) { 
         Point p = points.get(i);
-        p.changeMetric(n_new);
+        p.changeMetric(n);
     }
-    n = n_new;
     redraw();
 }
 
