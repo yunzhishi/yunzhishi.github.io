@@ -3,6 +3,66 @@
   
     
     <entry>
+      <title><![CDATA[Sarah's Interactive Voronoi Diagram]]></title>
+      <url>/2017/11/01/voronoi/</url>
+      <content type="html"><![CDATA[<p><img src="/images/voronoi/Voronoi_Matt.png" alt="Voronoi_Matt"></p>
+<p>My friend and colleague, Sarah Yvonne Greer, is currenty in her senior year.  She used her passion on llamas to design her cool cozy <a href="sygreer.com">personal website</a>.  It contains some very interesting mathematical visualization projects, including this interactive <a href="sygreer.com/projects/voronoi">Voronoi diagram</a>.</p>
+<a id="more"></a>
+
+<script type="text/javascript" src="/lib/processingjs/processing.js"></script>
+<script type="text/javascript">
+    function setNorm(norm) {
+        var pjs = Processing.getInstanceById('voronoi');
+        pjs.updatePoints(norm); }
+
+    function reset() {
+        var pjs = Processing.getInstanceById('voronoi');
+        pjs.clearBoard(); }
+</script>
+
+<center>
+<canvas id="voronoi" data-processing-sources="/scripts/voronoi/voronoi.pde"></canvas>
+<div class="text-center">
+    <br>
+    <a class="btn" onclick="setNorm(1)" rel="contents"> Manhattan norm </a>
+    <a class="btn" onclick="setNorm(0)" rel="contents"> Euclidean norm </a>
+    <a class="btn" onclick="setNorm(2)" rel="contents"> Chebyshev norm </a>
+    <a class="btn" onclick="reset()" rel="contents"> Clear display </a>
+</div>
+</center>
+
+<h3 id="About"><a href="#About" class="headerlink" title="About"></a>About</h3><h3 id="Instructions"><a href="#Instructions" class="headerlink" title="Instructions"></a>Instructions</h3><h3 id="Comments"><a href="#Comments" class="headerlink" title="Comments"></a>Comments</h3><h3 id="Here’s-a-bug"><a href="#Here’s-a-bug" class="headerlink" title="Here’s a bug!"></a>Here’s a bug!</h3>
+<center>
+<canvas id="voronoi" data-processing-sources="/scripts/voronoi/voronoi.pde"></canvas>
+<div class="text-center">
+    <br>
+    <a class="btn" onclick="setNorm(1)" rel="contents"> Manhattan norm </a>
+    <a class="btn" onclick="setNorm(0)" rel="contents"> Euclidean norm </a>
+    <a class="btn" onclick="setNorm(2)" rel="contents"> Chebyshev norm </a>
+    <a class="btn" onclick="reset()" rel="contents"> Clear display </a>
+</div>
+</center>
+
+<h3 id="Source-code"><a href="#Source-code" class="headerlink" title="Source code"></a>Source code</h3>]]></content>
+      
+        <categories>
+            
+            <category> Algorithm </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Algorithm </tag>
+            
+            <tag> Interactive </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Git Tricks]]></title>
       <url>/2016/05/18/git-tricks/</url>
       <content type="html"><![CDATA[<p>I learned some git tricks from the website: <a href="liaoxuefeng.com">廖雪峰的官方网站</a>. Unfortunately the posts in the website are all writen in Chinese, therefore I would like to share them here in English.</p>
@@ -43,14 +103,14 @@
       <title><![CDATA[Hello World]]></title>
       <url>/2016/05/18/hello-world/</url>
       <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
+<h3 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h3><h4 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
 <a id="more"></a>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
+<h4 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
+<h4 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
+<h4 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
 ]]></content>
       
