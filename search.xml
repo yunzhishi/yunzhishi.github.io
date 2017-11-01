@@ -27,8 +27,8 @@
 <br>
 <div class="text-center">
     <a class="btn" onclick="setNorm(1)" rel="contents"> Manhattan </a>
-    <a class="btn" onclick="setNorm(2)" rel="contents"> Euclidean </a>
-    <a class="btn" onclick="setNorm(3)" rel="contents"> Chebyshev </a>
+    <a class="btn" onclick="setNorm(0)" rel="contents"> Euclidean </a>
+    <a class="btn" onclick="setNorm(2)" rel="contents"> Chebyshev </a>
     <a class="btn" onclick="reset()" rel="contents"> Clear </a>
 </div>
 </center>
@@ -84,8 +84,8 @@
 <br>
 <div class="text-center">
     <a class="btn" onclick="setNorm_old(1)" rel="contents"> Manhattan </a>
-    <a class="btn" onclick="setNorm_old(2)" rel="contents"> Euclidean </a>
-    <a class="btn" onclick="setNorm_old(3)" rel="contents"> Chebyshev </a>
+    <a class="btn" onclick="setNorm_old(0)" rel="contents"> Euclidean </a>
+    <a class="btn" onclick="setNorm_old(2)" rel="contents"> Chebyshev </a>
     <a class="btn" onclick="reset_old()" rel="contents"> Clear </a>
 </div>
 </center>
