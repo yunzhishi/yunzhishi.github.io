@@ -11,7 +11,7 @@
 <p>Her work was linked on the Agile Scientific’s blog post <a href="https://agilescientific.com/blog/2017/10/4/kings-crows-and-taxicabs" target="_blank" rel="external">The norm: kings, crows and taxicabs</a> by Matt Hall; the figure in the very beginning is from that post. She also got a chance to join the Undersampled Radio show <a href="https://undersampledrad.io/home/2017/10/game-set-match" target="_blank" rel="external">Game, Set, Match</a> recently.</p>
 <p>Unlike she having a dedicated server in Oregon, I host this website in <a href="https://www.google.com/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=1&amp;ved=0ahUKEwjOoYjAmJ7XAhUF0YMKHSadBP8QFggoMAA&amp;url=https%3A%2F%2Fpages.github.com%2F&amp;usg=AOvVaw0rFEJ-mlO9IotpcBjyXtQl" target="_blank" rel="external">Git Pages</a> for free. Therefore I am limited to using <strong>static pre-generated web pages</strong>. The architecture that I am using now is <a href="https://hexo.io" target="_blank" rel="external">Hexo</a>. Yet I wanted to explore the interaction feature out of its poor Javascript support. After tiny teeny adoptions, I managed to brutally reproduce it here.</p>
 
-<script type="text/javascript" src="/lib/processingjs/processing.js"></script>
+<script src="/lib/processingjs/processing-min.js"></script>
 <script type="text/javascript">
     function setNorm(norm) {
         var pjs = Processing.getInstanceById('voronoi');
@@ -22,6 +22,7 @@
         pjs.clearBoard(); }
 </script>
 
+<body>
 <center>
 <canvas id="voronoi" data-processing-sources="/scripts/voronoi/voronoi.pde"></canvas>
 <br>
@@ -32,6 +33,7 @@
     <a class="btn" onclick="reset()" rel="contents"> Clear </a>
 </div>
 </center>
+</body>
 
 <h3 id="About"><a href="#About" class="headerlink" title="About"></a>About</h3><p>You can read more about this interactive Voronoi diagram on <a href="http://mathworld.wolfram.com/VoronoiDiagram.html" target="_blank" rel="external">Wolfram MathWorld</a> and <a href="https://en.wikipedia.org/wiki/Voronoi_diagram" target="_blank" rel="external">Wikipedia</a>. In this demonstration, there are 3 different metrics. The table below describes them. Essentially, these metrics represent $L_1$, $L_2$, and $L_\infty$ distance, respectively, between the point of interest $\mathbf{a}=(x_1,\,y_1)$ (denoted by black dots on the above display) and any other point $\mathbf{b}=(x_2,\,y_2)$ on the plane.</p>
 <table>
@@ -68,7 +70,7 @@
 <li>Click the diagram again, you will see incorrect small circles instead of correct segmentations.</li>
 </ol>
 
-<script type="text/javascript" src="/lib/processingjs/processing-min.js"></script>
+<script src="/lib/processingjs/processing-min.js"></script>
 <script type="text/javascript">
     function setNorm_old(norm) {
         var pjs = Processing.getInstanceById('voronoi_old');
@@ -79,6 +81,7 @@
         pjs.clearBoard(); }
 </script>
 
+<body>
 <center>
 <canvas id="voronoi_old" data-processing-sources="/scripts/voronoi/voronoi_old.pde"></canvas>
 <br>
@@ -89,6 +92,7 @@
     <a class="btn" onclick="reset_old()" rel="contents"> Clear </a>
 </div>
 </center>
+</body>
 
 <h4 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h4><p>I found that it’s related to the function <code>updatePoints</code> from the code <a href="http://sygreer.com/projects/voronoi/voronoi.pde" target="_blank" rel="external"><code>voronoi.pde</code></a>.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">...</div><div class="line"><span class="keyword">int</span> n;                   <span class="comment">// metric flag</span></div><div class="line">...</div><div class="line"><span class="comment">// update points on the plane</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">updatePoints</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = points.size()-<span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</div><div class="line">        Point p = points.get(i);</div><div class="line">        p.changeMetric(n);</div><div class="line">    &#125;</div><div class="line">    redraw();</div><div class="line">&#125;</div><div class="line">...</div></pre></td></tr></table></figure></p>
 <p>Notice that <code>int n</code> is declared as a global variable; however, in <code>updatePoints</code> it was only called as a local dummy variable. It leads to a very dangerous ambiguity: how should these two variables with the same name but different scope be related? Often this is an environment-dependent result. Eventually I fixed it by explicitly updating the value of the global variable <code>int n</code>:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">updatePoints</span><span class="params">(<span class="keyword">int</span> n_new)</span></span>&#123;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = points.size()-<span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</div><div class="line">        Point p = points.get(i);</div><div class="line">        p.changeMetric(n_new);</div><div class="line">    &#125;</div><div class="line">    n = n_new</div><div class="line">    redraw();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
