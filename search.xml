@@ -68,7 +68,7 @@
 <li>Click the diagram again, you will see incorrect small circles instead of correct segmentations.</li>
 </ol>
 
-<script type="text/javascript" src="/lib/processingjs/processing.js"></script>
+<script type="text/javascript" src="/lib/processingjs/processing-min.js"></script>
 <script type="text/javascript">
     function setNorm_old(norm) {
         var pjs = Processing.getInstanceById('voronoi_old');
